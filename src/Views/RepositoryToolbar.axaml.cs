@@ -504,6 +504,15 @@ namespace SourceGit.Views
             ev.Handled = true;
         }
 
+        private async void OnOpenConfigure(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is ViewModels.Repository repo)
+            {
+                await this.ShowDialogAsync(new ViewModels.RepositoryConfigure(repo));
+                e.Handled = true;
+            }
+        }
+
         private async void OpenGitLogs(object sender, RoutedEventArgs e)
         {
             if (DataContext is ViewModels.Repository repo)

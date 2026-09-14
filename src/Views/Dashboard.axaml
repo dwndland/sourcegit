@@ -18,9 +18,9 @@
     </Grid.ColumnDefinitions>
 
     <!-- Repository Branches/Remotes/Tags/Submodules/Worktrees -->
-    <Grid Grid.Column="0" RowDefinitions="Auto,*" IsVisible="{Binding !#ThisControl.IsCommitSearchVisible, Mode=OneWay}">
+    <Grid Grid.Column="0" RowDefinitions="Auto,Auto,*" IsVisible="{Binding !#ThisControl.IsCommitSearchVisible, Mode=OneWay}">
       <!-- Filter Branches/Tags/Submodules -->
-      <TextBox Grid.Row="0"
+      <TextBox Grid.Row="1"
                x:Name="FilterBox"
                Height="24"
                Margin="6,6,4,0"
@@ -52,7 +52,7 @@
         </TextBox.InnerRightContent>
       </TextBox>
 
-      <Grid Grid.Row="1" x:Name="LeftSidebarGroups" Margin="0,4,0,0" RowDefinitions="28,Auto,28,Auto,28,Auto,28,Auto,28,Auto" SizeChanged="OnLeftSidebarSizeChanged">
+      <Grid Grid.Row="2" x:Name="LeftSidebarGroups" Margin="0,4,0,0" RowDefinitions="28,Auto,28,Auto,28,Auto,28,Auto,28,Auto" SizeChanged="OnLeftSidebarSizeChanged">
         <!-- Local Branches -->
         <ToggleButton Grid.Row="0" Classes="group_expander" IsChecked="{Binding IsLocalBranchGroupExpanded, Mode=TwoWay}">
           <Grid ColumnDefinitions="16,*,Auto">
@@ -555,5 +555,13 @@
         </v:Histories.IsDetailsPanelExpanded>
       </v:Histories>
     </Grid>
+
+    <Border Grid.Column="2" IsVisible="{Binding IsWorkingCopyVisible}">
+      <v:WorkingCopy DataContext="{Binding WorkingCopy, Mode=OneWay}"/>
+    </Border>
+
+    <Border Grid.Column="2" IsVisible="{Binding IsStashesVisible, Mode=OneWay}">
+      <v:StashesPage DataContext="{Binding StashesPage, Mode=OneWay}"/>
+    </Border>
   </Grid>
 </UserControl>

@@ -17,7 +17,7 @@
     </Grid.ColumnDefinitions>
 
     <!-- Page Switcher -->
-    <Grid Grid.Column="0" Width="49" RowDefinitions="Auto,*,Auto,Auto,8">
+    <Grid Grid.Column="0" Width="4" RowDefinitions="Auto,*,Auto,Auto,8" Opacity="0">
       <ListBox Background="Transparent" SelectedIndex="{Binding SelectedViewIndex, Mode=TwoWay}" SelectionMode="AlwaysSelected">
         <ListBox.Styles>
           <Style Selector="Path.icon">

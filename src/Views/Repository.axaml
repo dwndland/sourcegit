@@ -249,20 +249,24 @@
 
           <Grid Grid.Row="1">
             <!-- Dashboard Page -->
-            <Border IsVisible="{Binding IsDashboardVisible, Mode=OneWay}" PropertyChanged="OnRightPagePropertyChanged">
+            <Border PropertyChanged="OnRightPagePropertyChanged">
               <v:Dashboard IsCommitSearchVisible="{Binding Histories.IsSearchingCommits, Mode=OneWay}"/>
             </Border>
 
             <!-- Local Changes Page -->
+            <!--
             <Border IsVisible="{Binding IsWorkingCopyVisible, Mode=OneWay}" PropertyChanged="OnRightPagePropertyChanged">
               <v:WorkingCopy DataContext="{Binding WorkingCopy, Mode=OneWay}"/>
             </Border>
+            -->
 
             <!-- Stashes Page -->
+            <!--
             <Border IsVisible="{Binding IsStashesVisible, Mode=OneWay}" PropertyChanged="OnRightPagePropertyChanged">
               <v:StashesPage DataContext="{Binding StashesPage, Mode=OneWay}"/>
             </Border>
-            
+            -->
+
             <!-- Auto-Fetch Notification -->
             <Border Padding="12" HorizontalAlignment="Center" VerticalAlignment="Center" Effect="drop-shadow(0 0 12 #A0000000)" IsVisible="{Binding IsAutoFetching}">
               <Border Background="{DynamicResource Brush.Popup}" CornerRadius="6" BorderThickness="1" BorderBrush="{DynamicResource Brush.PopupBorder}">

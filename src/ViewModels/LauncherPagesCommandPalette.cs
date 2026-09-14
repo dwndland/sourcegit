@@ -155,8 +155,10 @@ namespace SourceGit.ViewModels
         {
             foreach (var page in _launcher.Pages)
             {
+                /*
                 if (page == _launcher.ActivePage)
                     continue;
+                */
 
                 if (string.IsNullOrEmpty(_searchFilter) ||
                     page.Node.Name.Contains(_searchFilter, StringComparison.OrdinalIgnoreCase) ||

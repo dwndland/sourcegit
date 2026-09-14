@@ -67,7 +67,7 @@
             <Grid ColumnDefinitions="4,Auto,*">
               <Rectangle Grid.Column="0" Classes="indicator" Width="4" Height="20" VerticalAlignment="Center"/>
               <Path Grid.Column="1" Classes="icon" Data="{StaticResource Icons.Histories}"/>
-              <TextBlock Grid.Column="2" Classes="header" Text="History"/>
+              <TextBlock Grid.Column="2" Classes="header" Text="HISTORY"/>
             </Grid>
           </ListBoxItem>
 
@@ -75,7 +75,7 @@
             <Grid ColumnDefinitions="4,Auto,*,Auto,Auto">
               <Rectangle Grid.Column="0" Classes="indicator" Width="4" Height="20" VerticalAlignment="Center"/>
               <Path Grid.Column="1" Classes="icon" Data="{StaticResource Icons.Changes}"/>
-              <TextBlock Grid.Column="2" Classes="header" Text="{DynamicResource Text.WorkingCopy}"/>
+              <TextBlock Grid.Column="2" Classes="header" Text="LOCAL CHANGES"/>
               <Border Grid.Column="3"
                       Height="18"
                       Margin="6,0" Padding="9,0"
@@ -101,7 +101,7 @@
             <Grid ColumnDefinitions="4,Auto,*,Auto">
               <Rectangle Grid.Column="0" Classes="indicator" Width="4" Height="20" VerticalAlignment="Center"/>
               <Path Grid.Column="1" Classes="icon" Data="{StaticResource Icons.Stashes}"/>
-              <TextBlock Grid.Column="2" Classes="header" Text="{DynamicResource Text.Stashes}"/>
+              <TextBlock Grid.Column="2" Classes="header" Text="STASHES"/>
               <Border Grid.Column="3"
                       Height="18"
                       Margin="6,0" Padding="9,0"

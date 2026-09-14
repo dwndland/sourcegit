@@ -100,9 +100,11 @@
         <Path Width="14" Height="14" Data="{StaticResource Icons.Branch.Add}"/>
       </Button>
 
+      <!--
       <Button Classes="icon_button" Width="32" Margin="12,0,0,0" Click="OpenGitFlowMenu" IsVisible="{Binding !IsBare}" ToolTip.Tip="{DynamicResource Text.GitFlow}">
         <Path Width="14" Height="14" Data="{StaticResource Icons.GitFlow}"/>
       </Button>
+      -->
 
       <Button Classes="icon_button" Width="32" Margin="12,0,0,0" Click="OpenGitLFSMenu" IsVisible="{Binding !IsBare}" ToolTip.Tip="{DynamicResource Text.GitLFS}">
         <Path Width="14" Height="14" Data="{StaticResource Icons.LFS}"/>

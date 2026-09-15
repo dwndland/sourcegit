@@ -12,7 +12,6 @@ Compared to upstream, this fork does really only:
 - "Revertes" the new side bar and adds back the original view selectors.
 - Hides the Git Flow toolbar button.
 - Moves the repo settings button back to the repository tool bar.
-- Swaps the staged and unstaged panes.
 - Shows the current active tab in the `Tabs` dialog.
 
 ## Upstream

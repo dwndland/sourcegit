@@ -12,12 +12,12 @@
              x:Name="ThisControl">  
   <Grid>
     <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="49"/>
+      <ColumnDefinition Width="4"/>
       <ColumnDefinition Width="*"/>
     </Grid.ColumnDefinitions>
 
     <!-- Page Switcher -->
-    <Grid Grid.Column="0" Width="49" RowDefinitions="Auto,*,Auto,12">
+    <Grid Grid.Column="0" Width="49" RowDefinitions="Auto,*,Auto,12" Opacity="0">
       <ListBox Background="Transparent" SelectedIndex="{Binding SelectedViewIndex, Mode=TwoWay}" SelectionMode="AlwaysSelected">
         <ListBox.Styles>
           <Style Selector="Path.icon">
@@ -48,7 +48,7 @@
           </ItemsPanelTemplate>
         </ListBox.ItemsPanel>
 
-        <ListBoxItem ToolTip.Placement="Right">
+        <ListBoxItem>
           <ToolTip.Tip>
             <TextBlock>
               <Run Text="{DynamicResource Text.Dashboard}" Foreground="{DynamicResource Brush.FG1}"/>
@@ -59,7 +59,7 @@
           <Path Classes="icon" Data="{StaticResource Icons.Dashboard}"/>
         </ListBoxItem>
 
-        <ListBoxItem IsVisible="{Binding !IsBare}" ToolTip.Placement="Right">
+        <ListBoxItem IsVisible="{Binding !IsBare}">
           <ToolTip.Tip>
             <TextBlock>
               <Run Text="{DynamicResource Text.WorkingCopy}" Foreground="{DynamicResource Brush.FG1}"/>
@@ -89,7 +89,7 @@
           </Grid>
         </ListBoxItem>
 
-        <ListBoxItem IsVisible="{Binding !IsBare}" ToolTip.Placement="Right">
+        <ListBoxItem IsVisible="{Binding !IsBare}">
           <ToolTip.Tip>
             <TextBlock>
               <Run Text="{DynamicResource Text.Stashes}" Foreground="{DynamicResource Brush.FG1}"/>
@@ -119,8 +119,7 @@
               Width="40" Height="40"
               Margin="4,0"
               Click="OnOpenConfigure"
-              ToolTip.Tip="{DynamicResource Text.Repository.Configure}"
-              ToolTip.Placement="Right">
+              ToolTip.Tip="{DynamicResource Text.Repository.Configure}">
         <Path Width="18" Height="18" Data="{StaticResource Icons.Settings}"/>
       </Button>
     </Grid>
@@ -241,15 +240,117 @@
           <!-- Main Body -->
           <Grid Grid.Row="1" Background="{DynamicResource Brush.Window}">
             <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="{Binding #ThisControl.SidebarWidth, Mode=TwoWay}" MinWidth="{Binding #ThisControl.SidebarMinWidth, Mode=OneWay}"/>
-              <ColumnDefinition Width="Auto"/>
+              <ColumnDefinition Width="{Binding #ThisControl.SidebarWidth, Mode=TwoWay}" MinWidth="200"/>
+              <ColumnDefinition Width="3"/>
               <ColumnDefinition Width="*" MinWidth="100"/>
             </Grid.ColumnDefinitions>
 
             <!-- Sidebar (Branches/Remotes/Tags/Submodules/Worktrees) -->
-            <Grid Grid.Column="0" RowDefinitions="Auto,*" IsVisible="{Binding #ThisControl.IsNormalSidebarVisible, Mode=OneWay}">              
+            <Grid Grid.Column="0"
+                  RowDefinitions="Auto,Auto,*"
+                  IsVisible="{Binding !#ThisControl.IsCommitSearchPanelVisible, Mode=OneWay}">
+
+              <Border Grid.Row="0" Margin="8,8,4,0" BorderThickness="1" BorderBrush="{DynamicResource Brush.Border2}" CornerRadius="6">
+                <ListBox Background="Transparent" Padding="4" SelectedIndex="{Binding SelectedViewIndex, Mode=TwoWay}" SelectionMode="AlwaysSelected">
+                  <ListBox.Styles>
+                    <Style Selector="Path.icon">
+                      <Setter Property="Width" Value="12"/>
+                      <Setter Property="Height" Value="12"/>
+                      <Setter Property="Margin" Value="6,0"/>
+                      <Setter Property="Fill" Value="{DynamicResource Brush.FG2}"/>
+                    </Style>
+                    <Style Selector="TextBlock.header">
+                      <Setter Property="Foreground" Value="{DynamicResource Brush.FG2}"/>
+                      <Setter Property="FontWeight" Value="Bold"/>
+                    </Style>
+                    <Style Selector="ListBoxItem">
+                      <Setter Property="Height" Value="28"/>
+                      <Setter Property="Margin" Value="0"/>
+                      <Setter Property="Padding" Value="0"/>
+                      <Setter Property="BorderThickness" Value="0"/>
+                      <Setter Property="CornerRadius" Value="0"/>
+                    </Style>
+                    <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter#PART_ContentPresenter, ListBoxItem:selected /template/ ContentPresenter#PART_ContentPresenter">
+                      <Setter Property="Background" Value="Transparent"/>
+                    </Style>
+                    <Style Selector="ListBoxItem:selected">
+                      <Setter Property="BorderBrush" Value="{DynamicResource Brush.FG1}"/>
+                    </Style>
+                    <Style Selector="ListBoxItem:selected Rectangle.indicator">
+                      <Setter Property="Fill" Value="{DynamicResource Brush.FG1}"/>
+                    </Style>
+                    <Style Selector="ListBoxItem:selected TextBlock.header">
+                      <Setter Property="Foreground" Value="{DynamicResource Brush.FG1}"/>
+                    </Style>
+                    <Style Selector="ListBoxItem:selected Path.icon">
+                      <Setter Property="Fill" Value="{DynamicResource Brush.FG1}"/>
+                    </Style>
+                  </ListBox.Styles>
+
+                  <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                      <StackPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                  </ListBox.ItemsPanel>
+
+                  <ListBoxItem>
+                    <Grid ColumnDefinitions="4,Auto,*">
+                      <Rectangle Grid.Column="0" Classes="indicator" Width="4" Height="20" VerticalAlignment="Center"/>
+                      <Path Grid.Column="1" Classes="icon" Data="{StaticResource Icons.Histories}"/>
+                      <TextBlock Grid.Column="2" Classes="header" Text="HISTORY"/>
+                    </Grid>
+                  </ListBoxItem>
+
+                  <ListBoxItem IsVisible="{Binding !IsBare}">
+                    <Grid ColumnDefinitions="4,Auto,*,Auto,Auto">
+                      <Rectangle Grid.Column="0" Classes="indicator" Width="4" Height="20" VerticalAlignment="Center"/>
+                      <Path Grid.Column="1" Classes="icon" Data="{StaticResource Icons.Changes}"/>
+                      <TextBlock Grid.Column="2" Classes="header" Text="LOCAL CHANGES"/>
+                      <Border Grid.Column="3"
+                              Height="18"
+                              Margin="6,0" Padding="9,0"
+                              CornerRadius="9"
+                              VerticalAlignment="Center"
+                              Background="{DynamicResource Brush.Badge}"
+                              IsVisible="{Binding LocalChangesCount, Mode=OneWay, Converter={x:Static c:IntConverters.IsGreaterThanZero}}">
+                        <TextBlock Text="{Binding LocalChangesCount, Mode=OneWay}"
+                                   Foreground="{DynamicResource Brush.BadgeFG}"
+                                   FontFamily="{DynamicResource Fonts.Monospace}"
+                                   FontSize="10"/>
+                      </Border>
+                      <Path Grid.Column="4"
+                            Width="12" Height="12"
+                            Margin="0,0,6,0"
+                            Data="{StaticResource Icons.Info}"
+                            Fill="DarkOrange"
+                            IsVisible="{Binding InProgressContext, Converter={x:Static ObjectConverters.IsNotNull}}"/>
+                    </Grid>
+                  </ListBoxItem>
+
+                  <ListBoxItem IsVisible="{Binding !IsBare}">
+                    <Grid ColumnDefinitions="4,Auto,*,Auto">
+                      <Rectangle Grid.Column="0" Classes="indicator" Width="4" Height="20" VerticalAlignment="Center"/>
+                      <Path Grid.Column="1" Classes="icon" Data="{StaticResource Icons.Stashes}"/>
+                      <TextBlock Grid.Column="2" Classes="header" Text="STASHES"/>
+                      <Border Grid.Column="3"
+                              Height="18"
+                              Margin="6,0" Padding="9,0"
+                              CornerRadius="9"
+                              VerticalAlignment="Center"
+                              Background="{DynamicResource Brush.Badge}"
+                              IsVisible="{Binding StashesCount, Mode=OneWay, Converter={x:Static c:IntConverters.IsGreaterThanZero}}">
+                        <TextBlock Text="{Binding StashesCount, Mode=OneWay}"
+                                   Foreground="{DynamicResource Brush.BadgeFG}"
+                                   FontFamily="{DynamicResource Fonts.Monospace}"
+                                   FontSize="10"/>
+                      </Border>
+                    </Grid>
+                  </ListBoxItem>
+                </ListBox>
+              </Border>
+
               <!-- Filter Branches/Tags/Submodules -->
-              <TextBox Grid.Row="0"
+              <TextBox Grid.Row="1"
                        x:Name="FilterBox"
                        Height="24"
                        Margin="6,6,4,0"
@@ -281,7 +382,7 @@
                 </TextBox.InnerRightContent>
               </TextBox>
 
-              <Grid Grid.Row="1" x:Name="LeftSidebarGroups" Margin="0,4,0,0" RowDefinitions="28,Auto,28,Auto,28,Auto,28,Auto,28,Auto" SizeChanged="OnLeftSidebarSizeChanged">
+              <Grid Grid.Row="2" x:Name="LeftSidebarGroups" Margin="0,4,0,0" RowDefinitions="28,Auto,28,Auto,28,Auto,28,Auto,28,Auto" SizeChanged="OnLeftSidebarSizeChanged">
                 <!-- Local Branches -->
                 <ToggleButton Grid.Row="0" Classes="group_expander" IsChecked="{Binding IsLocalBranchGroupExpanded, Mode=TwoWay}">
                   <Grid ColumnDefinitions="16,*,Auto">
@@ -569,19 +670,12 @@
 
             <!-- Splitter -->
             <GridSplitter Grid.Column="1"
-                          Width="3" MinWidth="3" MaxWidth="3"
+                          MinWidth="1"
                           HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                           Background="Transparent"
                           BorderThickness="0,0,1,0"
                           BorderBrush="{DynamicResource Brush.Border0}"
-                          Focusable="False">
-              <GridSplitter.IsVisible>
-                <MultiBinding Converter="{x:Static BoolConverters.Or}">
-                  <Binding ElementName="ThisControl" Path="IsCommitSearchPanelVisible"/>
-                  <Binding ElementName="ThisControl" Path="IsNormalSidebarVisible"/>
-                </MultiBinding>
-              </GridSplitter.IsVisible>
-            </GridSplitter>
+                          Focusable="False"/>
 
             <!-- Right Page -->
             <Grid Grid.Column="2">
